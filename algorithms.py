@@ -59,7 +59,7 @@ class Algorithms:
         dx = p1.x() - p2.x()
         dy = p1.y() - p2.y()
         
-        return sqrt(dx^2 + dy^2)
+        return sqrt(dx**2 + dy**2)
 
     def getNearestPoint(self, q: QPoint3DF, points: list[QPoint3DF]):
         # get point nearest to the query point
@@ -91,9 +91,12 @@ class Algorithms:
     
     def delaunayTriangulation(self, points: list[QPoint3DF]):
         dt = [] #list of edges
-        ael = [Edge] #list of active edges
+        ael = [] #list of active edges
         
-        p1 = min(points, key=lambda k:k.x())
+        p1 = points[0]
+        for p in points[1:]:
+            if p.x() < p1.x():
+                p1 = p
         
         #find nearest point to p1
         

@@ -98,6 +98,7 @@ class Ui_MainForm(object):
         self.actionParameters = QtGui.QAction(parent=MainForm)
         icon8 = QtGui.QIcon()
         icon8.addPixmap(QtGui.QPixmap("Images/Icons/settings.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        
         self.actionParameters.setIcon(icon8)
         self.actionParameters.setObjectName("actionParameters")
         self.menuFile.addAction(self.actionOpen)
@@ -137,6 +138,9 @@ class Ui_MainForm(object):
         self.retranslateUi(MainForm)
         QtCore.QMetaObject.connectSlotsByName(MainForm)
 
+        #User-defined slots
+        self.actionDT.triggered.connect(self.dtClick)
+    
     def retranslateUi(self, MainForm):
         _translate = QtCore.QCoreApplication.translate
         MainForm.setWindowTitle(_translate("MainForm", "DTM analysis"))

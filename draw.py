@@ -11,15 +11,15 @@ class Draw(QWidget):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         
-        self.points = list(QPoint3DF)
-        self.dt = list(Edge)
+        self.points = []
+        self.dt = []
         
     def mousePressEvent(self, e: QMouseEvent):
         #Get coordinates of q
         x = e.position().x()
         y = e.position().y()
         
-        p = QPointF(x, y)
+        p = QPoint3DF(x, y, 0)
             
         self.points.append(p)
             
@@ -38,7 +38,7 @@ class Draw(QWidget):
         r = 10
         #Draw building
         for point in self.points:
-                qp.drawEllipse(int(point.x()-r), int(point.y()-r, r*2, r*2))
+            qp.drawEllipse(int(point.x()) - r, int(point.y()) - r, r*2, r*2)
         
         #Set graphical attributes
         qp.setPen(Qt.GlobalColor.gray)
