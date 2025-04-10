@@ -89,7 +89,7 @@ class Algorithms:
                   
         return delaunay_point
     
-    def delaunayTrianguzlation(self, points: list[QPoint3DF]):
+    def delaunayTriangulation(self, points: list[QPoint3DF]):
         dt = [] #list of edges
         ael = [Edge] #list of active edges
         
@@ -118,12 +118,26 @@ class Algorithms:
             p = self.findDelaunayPoint(e1s.getStart(), e1s.getEnd(), points)
             
             if p:
-                #create new edges and add them to the list of edges
-                ne1 = Edge(p1, p)
-                ne2 = Edge(p2, p)
-                ne3 = Edge(p1, p2)
-        
-        
-        
+                #create new edges and add them (+ the first edge) to the list of edges
+                e2s = Edge(e1s.getEnd(), p)
+                e3s = Edge(p, e1s.getStart())
+                
+                dt.append(e1s)
+                dt.append(e2s)
+                dt.append(e3s)
+                
+                #update ael
+                self.updateAEL(e2s, ael)
+                self.updateAEL(e3s, ael)
+                
+        return dt
     
-    
+    def updateAEL(self, e: Edge, ael: list):
+        #search for edge with opposite direction
+        es = e.switchOrientation()
+        
+        if es in ael:
+            ael.remove(es)
+            
+        else:
+            ael.append(e)

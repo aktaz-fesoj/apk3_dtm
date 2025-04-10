@@ -8,6 +8,7 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 from draw import Draw
+from algorithms import *
 
 
 class Ui_MainForm(object):
@@ -164,6 +165,19 @@ class Ui_MainForm(object):
         self.actionParameters.setText(_translate("MainForm", "Parameters"))
         self.actionParameters.setToolTip(_translate("MainForm", "Setting parameters"))
 
+    def dtClick(self):
+        a = Algorithms()
+        #get input data
+        points = ui.Canvas.getPoints()
+        
+        dt = a.delaunayTriangulation(points)
+        
+        #set results
+        ui.Canvas.setDT(dt)
+        
+        #repaint
+        ui.Canvas.repaint()
+        
 
 if __name__ == "__main__":
     import sys
